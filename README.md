@@ -189,6 +189,17 @@ to the validation you are willing to skip, like this:
 monetize :price_in_a_range_cents, numericality: false
 ```
 
+And you can also use `subunit_numericality` for subunit:
+
+```ruby
+monetize :price_in_a_range_cents,
+         allow_nil: true,
+         subunit_numericality: {
+           greater_than_or_equal_to: 0,
+           less_than_or_equal_to: 100_00
+         }
+```
+
 ### Mongoid 2.x and 3.x
 
 `Money` is available as a field type to supply during a field definition:
@@ -237,7 +248,7 @@ class Transaction < ActiveRecord::Base
   monetize :price_cents
   monetize :tax_cents
   monetize :total_cents
-  
+
   def total_cents
     price_cents + tax_cents
   end
@@ -565,12 +576,12 @@ For examples on using the test_helpers look at
 
 ## Supported ORMs/ODMs
 
-* ActiveRecord (>= 3.x)
+* ActiveRecord (>= 6.1)
 * Mongoid (>= 2.x)
 
 ## Supported Ruby interpreters
 
-* MRI Ruby >= 2.6
+* MRI Ruby >= 3.0
 
 You can see a full list of the currently supported interpreters in
 [ruby.yml](https://github.com/RubyMoney/money-rails/blob/main/.github/workflows/ruby.yml)
